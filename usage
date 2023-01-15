@@ -1,0 +1,7 @@
+# change main to your target
+target_include_directories(main PRIVATE "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/include/ndi-sdk")
+# add other lib / dll in this format if you needed
+target_link_libraries(main PRIVATE "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/lib/Processing.NDI.Lib.x64.lib")
+add_custom_command(TARGET main POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/Processing.NDI.Lib.x64.dll"
+        $<TARGET_FILE_DIR:main>)
